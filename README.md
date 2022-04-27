@@ -17,7 +17,7 @@ pred_preprocessing -> prediction -> analysis
 
 ## data_testing
 - Input: model class and setting, model.pt, X_test, Y_test
-* If you didn't run testing right after training model, then you need to load model.
+> If you didn't run testing right after training model, then you need to load model.
 
 - Output: test.csv, Accuracy, X_test_correct, X_test_wrong, Confusion matrix
 
