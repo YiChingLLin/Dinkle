@@ -1,4 +1,4 @@
-# dinkle
+# Dinkle
 This project
 
 # Process
