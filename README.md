@@ -19,7 +19,7 @@ pred_preprocessing -> prediction -> analysis
 - Input: model class and setting, model.pt, X_test, Y_test
 > If you didn't run testing right after training model, then you need to load model.
 
-- Output: test.csv, Accuracy, X_test_correct, X_test_wrong, Confusion matrix
+- Output: test.csv, accuracy, X_test_correct, X_test_wrong, Confusion matrix
 
 ## analysis
 ### Testing
@@ -40,12 +40,12 @@ pred_preprocessing -> prediction -> analysis
 ### SHAP Heatmap
 - Input: shap.npy
 
-- Output: Picture of the heatmap, and the percentage of each feature
+- Output: Pictures of the heatmap, and the percentage of each feature
 
 ## pred_preprocessing
 - Input: Data after cleaning
 
-- Output: test, label
+- Output: test.npy, label.npy
 
 ## prediction
 - Input: model class and setting, model.pt, true.npy, test.npy, label.npy
