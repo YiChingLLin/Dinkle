@@ -1,5 +1,5 @@
 # Dinkle
-This project is NCCU cooperation with Dinkle, used LSTM in product quality prediction. 
+This project is NCCU cooperation with Dinkle, which used LSTM in product quality prediction. 
 
 # Process
 ## Model 
