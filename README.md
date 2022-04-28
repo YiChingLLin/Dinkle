@@ -7,7 +7,8 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 > training model code is not in this github.
 
 ## Prediction
-pred_preprocessing -> prediction -> analysis
+(pred_cleaning) -> pred_preprocessing -> prediction -> analysis
+> pred_cleaning is not necessary, only for prediction can show scatter plot.
 
 # Description
 ## data_preprocessing
@@ -41,6 +42,11 @@ pred_preprocessing -> prediction -> analysis
 - Input: shap.npy
 
 - Output: Pictures of the heatmap, and the percentage of each feature
+
+## pred_cleaning
+- Input: Raw data
+
+- Output: true.npy
 
 ## pred_preprocessing
 - Input: Data after cleaning
