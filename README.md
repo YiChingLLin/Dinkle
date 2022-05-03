@@ -1,5 +1,6 @@
 # Dinkle
 This project is NCCU cooperation with Dinkle, which used LSTM and SHAP in product quality prediction. 
+This GitHub focus on reasoning product quality prediction with DeepSHAP.
 
 # Process
 ## Model 
