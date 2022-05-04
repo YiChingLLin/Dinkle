@@ -1,5 +1,5 @@
 # Example
-You can follow the `model_example.ipynb` for model testing, analysis and reasoning product quality prediction with DeepSHAP; `prediction_example.ipynb` for prediction and analysis.
+You can follow the `model_example` for model testing, analysis and reasoning product quality prediction with DeepSHAP; `prediction_example` for prediction and analysis.
 
 Some sample data and model are also provided in this folder for you to try.
 
