@@ -2,7 +2,7 @@
 This project is NCCU cooperation with Dinkle, which used LSTM and SHAP in product quality prediction. 
 This GitHub focus on reasoning product quality prediction with DeepSHAP.
 
-## Process
+# Process
 ### Model 
 data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 > training model code is not in this github.
@@ -11,7 +11,7 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 (pred_cleaning) -> pred_preprocessing -> prediction -> analysis
 > pred_cleaning is not necessary, only for prediction can show scatter plot.
 
-## Description
+# Description
 ### data_preprocessing
 - Input: Data after cleaning
 
@@ -59,7 +59,7 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 
 - Output: pred.npy, test.csv, accuracy, pictures
 
-## Example Folder
+# Example Folder
 You can follow the `model_example` for model testing, analysis and reasoning product quality prediction with DeepSHAP; `prediction_example` for prediction and analysis.
 
 Some sample data and model are also provided in this folder.
