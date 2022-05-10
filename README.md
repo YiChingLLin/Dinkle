@@ -38,8 +38,7 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 - Output: Pictures of error distribution histogram
 
 ### SHAP 
-[SHAP GitHub](https://github.com/slundberg/shap)
-#### SHAP 
+#### SHAP [GitHub](https://github.com/slundberg/shap)
 - Input: model class and setting, model.pt, X_train.npy, X_test.npy
 
 - Output: shap.npy
