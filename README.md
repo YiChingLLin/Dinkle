@@ -17,8 +17,8 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 
 - Output: X_train, Y_train, X_test, Y_test
 
-- ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/data_preprocessing1.png)
-- ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/data_preprocessing2.png)
+ ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/data_preprocessing1.png)
+ ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/data_preprocessing2.png)
 
 ### data_testing
 - Input: model class and setting, model.pt, X_test, Y_test
