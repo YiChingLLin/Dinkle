@@ -11,6 +11,8 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 (pred_cleaning) -> pred_preprocessing -> prediction -> analysis
 > pred_cleaning is not necessary, only for prediction can show scatter plot.
 
+ ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/process.jpg)
+
 # Description
 ### data_preprocessing
 - Input: Data after cleaning
