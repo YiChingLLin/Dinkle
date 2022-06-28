@@ -5,7 +5,7 @@ This GitHub focus on reasoning product quality prediction with DeepSHAP.
 # Process
 ### Model 
 data_preprocessing -> training model -> data_testing -> analysis -> SHAP
-> training model code is not in this github.
+> training model code is in [another github](https://github.com/chi110356042/Dinkle)
 
 ### Prediction
 (pred_cleaning) -> pred_preprocessing -> prediction -> analysis
