@@ -8,8 +8,9 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 > training model code is in [another GitHub](https://github.com/chi110356042/Dinkle)
 
 ### Prediction
-(pred_cleaning) -> pred_preprocessing -> prediction -> analysis
+(pred_cleaning) -> pred_preprocessing -> prediction -> analysis -> pred_SHAP
 > pred_cleaning is not necessary, only for prediction can show scatter plot.
+> pred_SHAP is nearly the same as SHAP, only the input test data is different.
 
  ![alt text](https://github.com/YiChingLLin/Dinkle/blob/main/pic/process.jpg)
 
@@ -39,9 +40,10 @@ data_preprocessing -> training model -> data_testing -> analysis -> SHAP
 
 - Output: Pictures of error distribution histogram
 
-### SHAP 
+### SHAP / pred_SHAP
+> pred_SHAP is nearly the same as SHAP, only the input test data is different.
 #### SHAP [GitHub](https://github.com/slundberg/shap)
-- Input: model class and setting, model.pt, X_train.npy, X_test.npy
+- Input: model class and setting, model.pt, X_train.npy, X_test.npy for SHAP (test.npy for pred_SHAP)
 
 - Output: shap.npy
 #### SHAP Heatmap
