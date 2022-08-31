@@ -26,8 +26,8 @@ sequence_num = 100
 partNo = "0162B00100" #料號編號
 print("Sequence number: ", sequence_num)
 
-# put your folder path
-folder_path = '/username/desktop/example/'
+# put your folder path, ex: '/content/drive/MyDrive/.../'
+folder_path = './'
 
 # put model name, ex: 'model.pt' for model path
 model_path = folder_path + 'model.pt'
@@ -616,3 +616,209 @@ detail_min_wrong = np.zeros(13)
 
 measure_std_pred(pred, partNo)
 detail_wrong_pic_pred(detail_max_wrong, detail_min_wrong)
+
+"""#pred_SHAP """
+
+"""
+SHAP calculator, using SHAP github: https://github.com/slundberg/shap
+And save the 'shap.npy' for analysis
+"""
+!pip install shap
+import shap
+
+def shap_calculator(train, test):
+  X_train = torch.tensor(train).to(torch.float32)
+  X_test = torch.tensor(test).to(torch.float32)
+  print(X_test.shape)
+  features = ['Speed', 'Status', 'Frequency']
+
+  #should only something like 100 or 1000 random background samples, not the whole training dataset.
+  explainer = shap.DeepExplainer(model, X_train[:100]) 
+  shap_values_all = explainer.shap_values(X_test)
+
+  np.save(folder_path+'shap_pred.npy', shap_values_all)
+
+  X = np.array(shap_values_all).reshape(-1,sequence_num,3) #reshape the data for plot
+  print(X.shape)
+
+  shap.summary_plot(X[:, 0, :], X_test[:][:, 0, :], plot_type="bar", feature_names = features, plot_size=(15,5))
+
+"""
+SHAP calculator using 'test_all.npy' for example
+"""
+X_train = np.load(folder_path + 'x_train.npy')
+pred = np.load(folder_path + 'test_all.npy')
+pred = pred[:50] #For demo, here only use the first 50 data
+shap_calculator(X_train, pred)
+
+"""#SHAP heatmap picture from load data"""
+
+"""
+Calculator each feature SHAP value, and the sum of SHAP value
+"""
+import seaborn as sns
+
+def shap_feature_calculator(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=1)
+  shap_values = np.sum(shap_values, axis=0)
+  shap_values = np.sum(shap_values, axis=0)
+
+  num = 0
+  
+  for num in range(len(shap_values)):
+    value = shap_values[num]
+    values.append(value)
+
+  shap_values_sum = np.sum(shap_value)
+
+  return shap_values_sum
+
+"""
+Show the heatmap of feature and sequence
+"""
+def shap_feature_sequence(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+
+  shap_values_sum = shap_feature_calculator()
+
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=1)
+  shap_values = np.sum(shap_values, axis=0)
+
+  plt.figure(figsize=(20,2)) 
+  sns.heatmap(shap_values.T, linewidth=0.0,cmap="Blues",yticklabels =['Speed', 'Status', 'Frequency'])
+  plt.xlabel("Sequence")
+  plt.show()
+
+  for num in range(len(values)):
+    value = values[num]/shap_values_sum
+    print('Feature {0:10}:   {1:10.5f} %'.format(features[num], value*100))
+
+"""
+Show the heatmap of feature and data
+"""
+def shap_feature_data(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+  
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=2)
+  shap_values = np.sum(shap_values, axis=0)
+
+  plt.figure(figsize=(20,2)) 
+  sns.heatmap(shap_values.T, linewidth=0.0,cmap="Blues",yticklabels =['Speed', 'Status', 'Frequency'])
+  plt.xlabel("Data")
+  plt.show()
+
+"""
+Show the heatmap of feature and detail
+"""
+def shap_feature_detail(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+  
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=1)
+  shap_values = np.sum(shap_values, axis=1)
+
+  shap_values_add = np.add(shap_values[0:13], shap_values[13:26])
+
+  plt.figure(figsize=(20,2)) 
+  sns.heatmap(shap_values_add.T, linewidth=0.0,cmap="Blues", xticklabels=detail, yticklabels =['Speed', 'Status', 'Frequency'])
+  plt.xlabel("detail")
+  plt.show()
+
+  detail_value_sum = np.sum(shap_values_add, axis=1)
+
+  for i in range(13):
+    print("detail"+str(i+1))
+    for num in range(3):
+      value = shap_values_add[i][num]/detail_value_sum[i]
+      print('Feature {0:10}:   {1:10.5f} %'.format(features[num], value*100))
+
+"""
+Show the heatmap of data and sequence
+"""
+def shap_data_sequence(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=3)
+  shap_values = np.sum(shap_values, axis=0)
+
+  plt.figure(figsize=(20,5)) 
+  sns.heatmap(shap_values, linewidth=0.0,cmap="Blues", yticklabels=False)
+  plt.xlabel("Sequence")
+  plt.ylabel("Data")
+  plt.show()
+
+"""
+Show the heatmap of detail and sequence
+"""
+def shap_detail_sequence(load=True):
+  if load:
+    folder_path = folder
+    file_name = fname
+    shap_values_all = np.load(folder_path+str(file_name))
+
+  shap_value = np.array(abs(shap_values_all))
+  shap_values = np.sum(shap_value, axis=1)
+  shap_values = np.sum(shap_values, axis=2)
+
+  shap_values_add = np.add(shap_values[0:13], shap_values[13:26])
+
+  plt.figure(figsize=(20,5)) 
+  sns.heatmap(shap_values[0:13], linewidth=0.0,cmap="Blues", yticklabels=detail)
+  plt.xlabel("Sequence")
+  plt.ylabel("detail max")
+  plt.show()
+
+  plt.figure(figsize=(20,5)) 
+  sns.heatmap(shap_values[13:26], linewidth=0.0,cmap="Blues", yticklabels=detail)
+  plt.xlabel("Sequence")
+  plt.ylabel("detail min")
+  plt.show()
+
+  plt.figure(figsize=(20,5)) 
+  sns.heatmap(shap_values_add, linewidth=0.0,cmap="Blues", yticklabels=detail)
+  plt.xlabel("Sequence")
+  plt.ylabel("detail")
+  plt.show()
+
+"""
+using 'shap_pred.npy' from 'test_all.npy' for example
+"""
+values = []
+shap_values_sum = 0
+features = ['Speed', 'Status', 'Frequency']
+detail = []
+for i in range(1,14):
+  detail.append(str(i))
+
+sequence_num = 100
+
+# put shap npy file path, ex: 'shap_pred.npy'
+folder = folder_path
+fname = 'shap_pred.npy'
+  
+shap_feature_sequence(load=True)
+shap_feature_data(load=True)
+shap_feature_detail(load=True)
+shap_data_sequence(load=True)
+shap_detail_sequence(load=True)
